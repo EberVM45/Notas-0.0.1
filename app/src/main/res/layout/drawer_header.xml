@@ -11,7 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="@color/rojito"
+        android:background="@color/colorApp"
         android:padding="10dp"
         android:text="Opciones"
         android:textColor="@color/white"
