@@ -1,5 +1,6 @@
 package com.example.notas_001.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -11,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.notas_001.R;
+import com.example.notas_001.activityAgregarNota;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +20,7 @@ import com.example.notas_001.R;
  * create an instance of this fragment.
  */
 public class MainActivityF extends Fragment {
-
+    Button BotonActivityNotas;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -64,6 +66,15 @@ public class MainActivityF extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view=inflater.inflate(R.layout.fragment_main_activity,container,false);
+        BotonActivityNotas=(Button) view.findViewById(R.id.btnAgregarNota);
+        BotonActivityNotas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent in=new Intent(getActivity(),activityAgregarNota.class);
+                in.putExtra("cosas","Ventana Notas");
+                startActivity(in);
+            }
+        });
         return view;
     }
 }

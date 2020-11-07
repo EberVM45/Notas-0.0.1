@@ -1,5 +1,6 @@
 package com.example.notas_001.Fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -7,8 +8,10 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.notas_001.R;
+import com.example.notas_001.activityAgregarTarea;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,7 +19,7 @@ import com.example.notas_001.R;
  * create an instance of this fragment.
  */
 public class MainActivityTareas extends Fragment {
-
+    Button BotonActivityTareas;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -61,6 +64,15 @@ public class MainActivityTareas extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_main_activity_tareas,container,false);
+        BotonActivityTareas=(Button) view.findViewById(R.id.btnAgregarTarea);
+        BotonActivityTareas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getActivity(),activityAgregarTarea.class);
+                intent.putExtra("msj","Ventana Tareas");
+                startActivity(intent);
+            }
+        });
         return view;
     }
 }
