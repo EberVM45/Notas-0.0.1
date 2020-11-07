@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/notas"
+        android:icon="@drawable/ic_agregar_nota"
+        android:title="Notas"></item>
+    <item
+        android:id="@+id/tareas"
+        android:icon="@drawable/ic_agregar_tarrea"
+        android:title="Tareas"></item>
+
+</menu>
