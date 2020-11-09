@@ -11,10 +11,18 @@ class AdminSQL(context: Context) : SQLiteOpenHelper(context, "notasTareas", null
                 "${Tabla_Nota.campo_nombre} VARCHAR(30)," +
                 "${Tabla_Nota.campo_descripcion} VARCHAR(200) );"
         database?.execSQL(query_nota)
+        val query_Tarea: String? = "CREATE TABLE ${Table_Tarea.nombre_tabla} (" +
+                "${Table_Tarea.campo_id} INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "${Table_Tarea.campo_nombre} VARCHAR(30)," +
+                "${Table_Tarea.campo_descripcion} VARCHAR(200) ),"+
+                "${Table_Tarea.campo_FechaNotificacion} VARCHAR(200) ),"+
+                "${Table_Tarea.campo_HoraNotificacion} VARCHAR(200) );"
+                database?.execSQL(query_Tarea)
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
         db?.execSQL("DROP TABLE IF EXISTS ${Tabla_Nota.nombre_tabla}");
+        db?.execSQL("DROP TABLE IF EXISTS ${Table_Tarea.nombre_tabla}");
         onCreate(db);
     }
 
