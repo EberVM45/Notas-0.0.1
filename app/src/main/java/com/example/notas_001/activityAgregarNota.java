@@ -45,12 +45,12 @@ public class activityAgregarNota extends AppCompatActivity implements
             popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                 @Override
                 public boolean onMenuItemClick(MenuItem item) {
-                    switch (item.getItemId()){
+                    switch (item.getItemId()) {
                         case R.id.itemCamera:
                             addImageFromCamera();
                             return true;
                         case R.id.itemGaleria:
-                            Toast.makeText(getApplicationContext(),"Agregar desde galeria",Toast.LENGTH_LONG).show();
+                            addFromGallery();
                             return true;
                     }
                     return true;
@@ -85,12 +85,14 @@ public class activityAgregarNota extends AppCompatActivity implements
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         startActivityForResult(intent, activityAgregarNota.CAMERA_REQUEST);
     }
-    private void addFromGallery(){
+
+    private void addFromGallery() {
         Intent intent = new Intent(Intent.ACTION_PICK);
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
         startActivityForResult(Intent.createChooser(intent, "Select Image"), GALLERY_REQUEST);
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
