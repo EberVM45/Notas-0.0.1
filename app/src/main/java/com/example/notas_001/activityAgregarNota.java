@@ -3,14 +3,11 @@ package com.example.notas_001;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.PopupMenu;
@@ -35,9 +32,9 @@ public class activityAgregarNota extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interfaz_agregar_nota);
-        title = (EditText) findViewById(R.id.txtTittle);
-        description = (EditText) findViewById(R.id.editText);
-        buttonAccept = (Button) findViewById(R.id.btnAceptarNota);
+        title = (EditText) findViewById(R.id.txtTaskTitle);
+        description = (EditText) findViewById(R.id.txtTaskDescription);
+        buttonAccept = (Button) findViewById(R.id.btnAddNote);
         floatingButton = (FloatingActionButton) findViewById(R.id.floatingButtonNote);
         floatingButton.setOnClickListener(item -> {
             PopupMenu popup = new PopupMenu(this, floatingButton);

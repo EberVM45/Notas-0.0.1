@@ -36,11 +36,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtTittle"
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskTitle"
         app:layout_constraintVertical_bias="0.02" />
 
     <EditText
-        android:id="@+id/txtTittle"
+        android:id="@+id/txtTaskTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.009" />
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/txtTaskDescription"
         style="@android:style/Widget.AutoCompleteTextView"
         android:layout_width="match_parent"
         android:layout_height="208dp"
@@ -79,7 +79,7 @@
         app:layout_constraintVertical_bias="0.024" />
 
     <Button
-        android:id="@+id/btnAceptarNota"
+        android:id="@+id/btnAddNote"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Aceptar"
@@ -87,12 +87,12 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.659"
-        app:layout_constraintStart_toEndOf="@+id/btnCancelarNota"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintStart_toEndOf="@+id/botonCancelarr"
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskDescription"
         app:layout_constraintVertical_bias="0.943" />
 
     <Button
-        android:id="@+id/btnCancelarNota"
+        android:id="@+id/botonCancelarr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancelar"
@@ -100,6 +100,33 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText"
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskDescription"
         app:layout_constraintVertical_bias="0.943" />
+
+    <ImageView
+        android:id="@+id/imgCalendar"
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_calendar"
+        app:backgroundTint="@color/colorApp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.735"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskDescription"
+        app:layout_constraintVertical_bias="0.164" />
+
+    <ImageView
+        android:id="@+id/imgTime"
+        android:layout_width="55dp"
+        android:layout_height="48dp"
+        android:background="@drawable/ic_baseline_access_time_24"
+        app:backgroundTint="@color/colorApp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.926"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTaskDescription"
+        app:layout_constraintVertical_bias="0.164" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
