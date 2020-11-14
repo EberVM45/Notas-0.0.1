@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.notas_001.R
 import com.example.notas_001.datos.Nota
+import java.util.*
 
 class adaptadorNotas (
         var contexto: Context,
