@@ -65,7 +65,7 @@ public class activityAgregarTarea extends AppCompatActivity {
     }
 
     private void actualTime() {
-        SimpleDateFormat dfDate_day = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+        SimpleDateFormat dfDate_day = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
         Calendar c = Calendar.getInstance();
         fechaActual = dfDate_day.format(c.getTime());
 
@@ -78,7 +78,7 @@ public class activityAgregarTarea extends AppCompatActivity {
             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                 getDate.set(Calendar.HOUR_OF_DAY, hourOfDay);
                 getDate.set(Calendar.MINUTE, minute);
-                SimpleDateFormat timeformat = new SimpleDateFormat("HH:mm a");
+                SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm a");
                 hora_seleccionada = timeformat.format(getDate.getTime());
             }
         }, getDate.get(Calendar.HOUR_OF_DAY), getDate.get(Calendar.MINUTE), false);
@@ -103,7 +103,7 @@ public class activityAgregarTarea extends AppCompatActivity {
         description = findViewById(R.id.txtTaskDescription);
         imgTime = findViewById(R.id.imgTime);
         btnCancelar = findViewById(R.id.botonCancelarr);
-        btnAccept = findViewById(R.id.btnAddNote);
+        btnAccept = findViewById(R.id.btn_add_task);
         title = findViewById(R.id.txtTaskTitle);
     }
 }

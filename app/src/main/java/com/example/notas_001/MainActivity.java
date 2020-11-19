@@ -16,6 +16,8 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -81,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     }
 
-    private void message(String titulo, String texto) {
+    private void message(String titulo, String texto, int idTarea) {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             NotificationChannel notificationChannel =
@@ -89,11 +91,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(notificationChannel);
         }
+
+        //AGREGAR ACCION AL TOCAR LA NOTIFICACION
+        Intent intent = new Intent(this, VerTareaSeleccionada.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        intent.putExtra("idTarea", idTarea);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "n")
                 .setContentText(titulo)
                 .setSmallIcon(R.drawable.ic_notification)
                 .setAutoCancel(true)
-                .setContentTitle(texto);
+                .setContentTitle(texto)
+                .setContentIntent(pendingIntent);
         NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
         managerCompat.notify(999, builder.build());
     }
@@ -122,13 +131,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         lista.forEach(item -> {
             if (item.getFecha().equals(actualTime())) {
                 message("Hoy es la fecha de esta tarea", "La tarea es " + item.getTitulo() + "\n" +
-                        item.getFecha());
+                        item.getFecha(), item.getIdTarea());
             }
         });
     }
 
     private String actualTime() {
-        SimpleDateFormat dfDate_day = new SimpleDateFormat("dd/MM/yyyy HH:mm a");
+        SimpleDateFormat dfDate_day = new SimpleDateFormat("dd/MM/yyyy hh:mm a");
         Calendar c = Calendar.getInstance();
         return dfDate_day.format(c.getTime());
 

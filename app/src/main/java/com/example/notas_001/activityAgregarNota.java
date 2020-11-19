@@ -34,7 +34,7 @@ public class activityAgregarNota extends AppCompatActivity implements
         setContentView(R.layout.activity_interfaz_agregar_nota);
         title = (EditText) findViewById(R.id.txtTaskTitle);
         description = (EditText) findViewById(R.id.txtTaskDescription);
-        buttonAccept = (Button) findViewById(R.id.btnAddNote);
+        buttonAccept = (Button) findViewById(R.id.btn_add_note);
         floatingButton = (FloatingActionButton) findViewById(R.id.floatingButtonNote);
         floatingButton.setOnClickListener(item -> {
             PopupMenu popup = new PopupMenu(this, floatingButton);

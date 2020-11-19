@@ -5,8 +5,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.widget.Toast
 import org.jetbrains.annotations.NotNull
-import java.lang.Exception
 import java.sql.SQLException
+import kotlin.Exception
 
 class daoTarea(
         val contexto: Context
@@ -45,5 +45,21 @@ class daoTarea(
             Toast.makeText(contexto,e.message,Toast.LENGTH_SHORT).show()
         }
         return lista
+    }
+
+    fun getOneById(id: Int): Tarea?{
+        base = database.readableDatabase
+        var cursor:Cursor? = null
+        return try{
+            val query = "SELECT * FROM ${Tabla_tarea.nombre_tabla} " +
+                    "WHERE ${Tabla_tarea.campo_id} = '${id}'"
+            cursor = base.rawQuery(query,null)
+            Tarea(cursor.getInt(0),cursor.getString(2),
+                    cursor.getString(3), cursor.getString(4))
+        }catch (e: Exception){
+            null
+        }finally {
+            cursor?.close()
+        }
     }
 }
