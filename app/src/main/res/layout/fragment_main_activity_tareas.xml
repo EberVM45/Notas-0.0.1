@@ -7,38 +7,44 @@
     android:orientation="vertical"
     tools:context=".Fragments.MainActivityTareas">
 
-    <Button
-        android:id="@+id/btnAgregarTarea"
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Agregar Tarea"
-        app:backgroundTint="@color/colorApp"
-        android:textColor="@color/white"
+        android:text="Tareas"
+        android:textColor="#FFFFFF"
+        android:textSize="30sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.994" />
+        app:layout_constraintVertical_bias="0.07999998" />
 
-    <androidx.core.widget.NestedScrollView
+    <Button
+        android:id="@+id/btnAgregarTarea"
         android:layout_width="match_parent"
-        android:layout_height="550dp"
-        android:orientation="vertical"
-        android:paddingTop="65dp"
-        android:layout_marginTop="30dp">
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recycleTask"
-            android:layout_width="match_parent"
-            android:layout_height="667dp"
-            app:layout_constraintBottom_toTopOf="@+id/btnAgregarTarea"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
-    </androidx.core.widget.NestedScrollView>
+        android:layout_height="wrap_content"
+        android:text="Agregar Tarea"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/colorApp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recycleTask"
+        app:layout_constraintVertical_bias="1.0" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycleTask"
+        android:layout_width="match_parent"
+        android:layout_height="556dp"
+        app:layout_constraintBottom_toTopOf="@+id/btnAgregarTarea"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
