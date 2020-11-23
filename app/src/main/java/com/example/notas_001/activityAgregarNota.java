@@ -5,17 +5,24 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import com.example.notas_001.datos.Nota;
+import com.example.notas_001.datos.RecursosNota;
 import com.example.notas_001.datos.daoNota;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
 
 public class activityAgregarNota extends AppCompatActivity implements
         PopupMenu.OnMenuItemClickListener {
@@ -23,6 +30,8 @@ public class activityAgregarNota extends AppCompatActivity implements
     private EditText title;
     private EditText description;
     private Button buttonAccept;
+    private ImageView prueba;
+    private ArrayList<RecursosNota> listaRecursos;
     public static int CAMERA_REQUEST = 123;
     private static int GALLERY_REQUEST = 124;
     private com.google.android.material.floatingactionbutton.FloatingActionButton floatingButton;
@@ -32,6 +41,8 @@ public class activityAgregarNota extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interfaz_agregar_nota);
+        listaRecursos = new ArrayList<>();
+        prueba = (ImageView) findViewById(R.id.prueba);
         title = (EditText) findViewById(R.id.txtTaskTitle);
         description = (EditText) findViewById(R.id.txtTaskDescription);
         buttonAccept = (Button) findViewById(R.id.btn_add_note);
@@ -58,14 +69,6 @@ public class activityAgregarNota extends AppCompatActivity implements
         buttonAccept.setOnClickListener((item) -> {
             addNote();
         });
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            if (bundle.getString("cosas") != null) {
-                Toast.makeText(getApplicationContext(),
-                        bundle.getString("cosas"),
-                        Toast.LENGTH_SHORT).show();
-            }
-        }
     }
 
     private void addNote() {
@@ -84,17 +87,38 @@ public class activityAgregarNota extends AppCompatActivity implements
     }
 
     private void addFromGallery() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
+        Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent, "Select Image"), GALLERY_REQUEST);
+        startActivityForResult(
+                Intent.createChooser(intent, "Seleccione una imagen"),
+                GALLERY_REQUEST);
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == activityAgregarNota.CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
-            Toast.makeText(getBaseContext(), "Hola mundo", Toast.LENGTH_LONG).show();
+
+        }
+        if(requestCode == activityAgregarNota.GALLERY_REQUEST && resultCode == Activity.RESULT_OK){
+            Uri selectedImageUri = null;
+            Uri selectedImage;
+
+            String filePath = null;
+            assert data != null;
+            selectedImage = data.getData();
+            String selectPath = selectedImage.getPath();
+            if(selectPath != null){
+                InputStream imageStream = null;
+                try {
+                    imageStream = getContentResolver().openInputStream(selectedImage);
+                    listaRecursos.add(new RecursosNota(selectedImage.toString(),"image"));
+                    Toast.makeText(this,selectedImage.toString(),Toast.LENGTH_SHORT).show();
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
