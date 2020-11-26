@@ -20,7 +20,7 @@ class AdminSQL(context: Context) : SQLiteOpenHelper(context, "notasTareas", null
         database?.execSQL(query_nota)
 
         val queryTabla_RecursosNota: String = "CREATE TABLE ${Tabla_RecursosNota.nombre_tabla} ( " +
-                "${Tabla_RecursosNota.campo_idNota} INTEGER PRIMARY," +
+                "${Tabla_RecursosNota.campo_idNota} INTEGER PRIMARY KEY," +
                 "${Tabla_RecursosNota.campo_uri} TEXT NOT NULL," +
                 "${Tabla_RecursosNota.campo_tipo} VARCHAR(10) );"
         database?.execSQL(queryTabla_RecursosNota)

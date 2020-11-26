@@ -1,27 +1,27 @@
 package com.example.notas_001;
 
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.PopupMenu;
 import android.widget.Toast;
 
-import com.example.notas_001.datos.Nota;
-import com.example.notas_001.datos.RecursosNota;
-import com.example.notas_001.datos.daoNota;
+import com.example.notas_001.datos.*;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class activityAgregarNota extends AppCompatActivity implements
@@ -30,23 +30,23 @@ public class activityAgregarNota extends AppCompatActivity implements
     private EditText title;
     private EditText description;
     private Button buttonAccept;
-    private ImageView prueba;
     private ArrayList<RecursosNota> listaRecursos;
     public static int CAMERA_REQUEST = 123;
     private static int GALLERY_REQUEST = 124;
     private com.google.android.material.floatingactionbutton.FloatingActionButton floatingButton;
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_interfaz_agregar_nota);
         listaRecursos = new ArrayList<>();
-        prueba = (ImageView) findViewById(R.id.prueba);
         title = (EditText) findViewById(R.id.txtTaskTitle);
         description = (EditText) findViewById(R.id.txtTaskDescription);
         buttonAccept = (Button) findViewById(R.id.btn_add_note);
         floatingButton = (FloatingActionButton) findViewById(R.id.floatingButtonNote);
+
         floatingButton.setOnClickListener(item -> {
             PopupMenu popup = new PopupMenu(this, floatingButton);
             popup.getMenuInflater().inflate(R.menu.popup_menu, popup.getMenu());
@@ -66,18 +66,42 @@ public class activityAgregarNota extends AppCompatActivity implements
             });
             popup.show();
         });
-        buttonAccept.setOnClickListener((item) -> {
-            addNote();
-        });
+        buttonAccept.setOnClickListener(
+                (item) -> {
+                    try {
+                        addNote();
+                        addResourcesToDB();
+                    } catch (Exception e) {
+                        Toast.makeText(getApplicationContext(),
+                                e.getMessage(),
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
     }
 
     private void addNote() {
         try {
             new daoNota(getApplication()).insert(
-                    new Nota(title.getText().toString(), description.getText().toString())
+                    new Nota(title.getText().toString(),
+                            description.getText().toString())
             );
         } catch (Exception e) {
             Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void addResourcesToDB() {
+        try {
+            listaRecursos.forEach(
+                    item -> {
+                        new daoRecursosNota(getApplication())
+                                .insert(item);
+                    }
+            );
+        } catch (Exception e) {
+            Toast.makeText(getApplicationContext(), e.getMessage() + " --",
+                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -101,7 +125,7 @@ public class activityAgregarNota extends AppCompatActivity implements
         if (requestCode == activityAgregarNota.CAMERA_REQUEST && resultCode == Activity.RESULT_OK) {
 
         }
-        if(requestCode == activityAgregarNota.GALLERY_REQUEST && resultCode == Activity.RESULT_OK){
+        if (requestCode == activityAgregarNota.GALLERY_REQUEST && resultCode == Activity.RESULT_OK) {
             Uri selectedImageUri = null;
             Uri selectedImage;
 
@@ -109,12 +133,12 @@ public class activityAgregarNota extends AppCompatActivity implements
             assert data != null;
             selectedImage = data.getData();
             String selectPath = selectedImage.getPath();
-            if(selectPath != null){
+            if (selectPath != null) {
                 InputStream imageStream = null;
                 try {
                     imageStream = getContentResolver().openInputStream(selectedImage);
-                    listaRecursos.add(new RecursosNota(selectedImage.toString(),"image"));
-                    Toast.makeText(this,selectedImage.toString(),Toast.LENGTH_SHORT).show();
+                    listaRecursos.add(new RecursosNota(selectedImage.toString(), "image"));
+                    Toast.makeText(this, selectedImage.toString(), Toast.LENGTH_SHORT).show();
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }

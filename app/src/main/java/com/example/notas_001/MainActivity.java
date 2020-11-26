@@ -1,6 +1,5 @@
 package com.example.notas_001;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -13,20 +12,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.widget.Toast;
 
-import com.example.notas_001.Fragments.MainActivityF;
+import com.example.notas_001.Fragments.MainActivityNotas;
 import com.example.notas_001.Fragments.MainActivityTareas;
 import com.example.notas_001.datos.Tarea;
 import com.example.notas_001.datos.daoTarea;
@@ -67,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         //Fragment principal
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.container, new MainActivityF());
+        fragmentTransaction.add(R.id.container, new MainActivityNotas());
         fragmentTransaction.commit();
     }
 
@@ -113,7 +108,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if (item.getItemId() == R.id.notas) {
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.container, new MainActivityF());
+            fragmentTransaction.replace(R.id.container, new MainActivityNotas());
             fragmentTransaction.commit();
         }
         if (item.getItemId() == R.id.tareas) {

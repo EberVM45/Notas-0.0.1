@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,19 +11,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.notas_001.R;
 import com.example.notas_001.activityAgregarNota;
 import com.example.notas_001.datos.daoNota;
+import com.example.notas_001.verNotaSeleccionada;
 
 import java.util.Objects;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link MainActivityF#newInstance} factory method to
+ * Use the {@link MainActivityNotas#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MainActivityF extends Fragment {
+public class MainActivityNotas extends Fragment {
     Button BotonActivityNotas;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -37,7 +38,7 @@ public class MainActivityF extends Fragment {
     private RecyclerView recycleView;
     private RecyclerView.LayoutManager layoutManager;
 
-    public MainActivityF() {
+    public MainActivityNotas() {
         // Required empty public constructor
     }
 
@@ -50,8 +51,8 @@ public class MainActivityF extends Fragment {
      * @return A new instance of fragment MainActivityF.
      */
     // TODO: Rename and change types and number of parameters
-    public static MainActivityF newInstance(String param1, String param2) {
-        MainActivityF fragment = new MainActivityF();
+    public static MainActivityNotas newInstance(String param1, String param2) {
+        MainActivityNotas fragment = new MainActivityNotas();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -79,13 +80,16 @@ public class MainActivityF extends Fragment {
         recycleView.setLayoutManager(layoutManager);
         adaptadorNotas adaptador = new adaptadorNotas(Objects.requireNonNull(getContext()),
                 Objects.requireNonNull(new daoNota(getContext()).getAll()));
-        BotonActivityNotas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent in = new Intent(getActivity(), activityAgregarNota.class);
-                in.putExtra("cosas", "Ventana Notas");
-                startActivity(in);
-            }
+        adaptador.setOnClickListener((item) -> {
+            int a = (recycleView.getChildAdapterPosition(item)) + 1;
+            Intent intent = new Intent(getActivity(),verNotaSeleccionada.class);
+            intent.putExtra("idNota",a);
+            startActivity(intent);
+        });
+        BotonActivityNotas.setOnClickListener(v -> {
+            Intent in = new Intent(getActivity(), activityAgregarNota.class);
+            in.putExtra("cosas", "Ventana Notas");
+            startActivity(in);
         });
         recycleView.setAdapter(adaptador);
         return view;

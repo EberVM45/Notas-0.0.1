@@ -17,6 +17,11 @@ class adaptadorNotas (
 
     var inflador: LayoutInflater =
             contexto.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    lateinit var onClickListener: View.OnClickListener
+
+    fun setOnclickListener(onclickListener: View.OnClickListener) {
+        this.onClickListener = onclickListener
+    }
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         var titulo: TextView
@@ -29,7 +34,7 @@ class adaptadorNotas (
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View = inflador.inflate(R.layout.item_recycle_notas, null)
-        //view.setOnClickListener(onClickListener)
+        view.setOnClickListener(onClickListener)
         return ViewHolder(view)
     }
 

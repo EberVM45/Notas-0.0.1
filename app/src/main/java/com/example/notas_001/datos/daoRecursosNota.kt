@@ -12,21 +12,21 @@ class daoRecursosNota(
     private val database: AdminSQL = AdminSQL(contexto)
     var base: SQLiteDatabase = database.writableDatabase
 
-     fun insert(recursosNota: RecursosNota): Boolean {
+    fun insert(recursosNota: RecursosNota): Boolean {
         val query: String = "INSERT INTO ${Tabla_RecursosNota.nombre_tabla} (" +
                 "${Tabla_RecursosNota.campo_idNota},${Tabla_RecursosNota.campo_uri}," +
                 "${Tabla_RecursosNota.campo_tipo} ) VALUES(" +
-                "'${getAll()[getAll().size]}','${recursosNota.uri}','${recursosNota.tipo}' );"
-        return try{
+                "'${daoNota(contexto).getLastId()}','${recursosNota.uri}','${recursosNota.tipo}' );"
+        return try {
             base.execSQL(query)
-            Toast.makeText(contexto,"Agregado correctamente", Toast.LENGTH_SHORT).show()
+            Toast.makeText(contexto, "Agregado correctamente", Toast.LENGTH_SHORT).show()
             true
-        }catch (e: Exception){
+        } catch (e: Exception) {
             false
         }
     }
 
-     fun getAll(): ArrayList<RecursosNota> {
+    fun getAll(): ArrayList<RecursosNota> {
         base = database.readableDatabase
         val list: ArrayList<RecursosNota> = ArrayList()
         try {
@@ -41,7 +41,8 @@ class daoRecursosNota(
             }
             cursor.close()
         } catch (e: Exception) {
-
+            Toast.makeText(contexto,
+                    e.message, Toast.LENGTH_SHORT).show()
         }
         return list
     }
